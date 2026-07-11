@@ -144,11 +144,6 @@
     </div>
   </section>
 
-  <!-- ===== ADS BANNER (iframe) ===== -->
-  <div class="ads-banner" id="ads-banner">
-    <iframe src="ads.html" class="ads-iframe" scrolling="no" frameborder="0" loading="lazy"></iframe>
-  </div>
-
   <!-- Loading overlay -->
   <div class="loading-overlay hidden" id="loading">
     <div class="spinner"></div>
@@ -158,6 +153,25 @@
   <!-- Firebase compat CDN -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- Adsgram SDK -->
+  <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+
   <script src="home.js"></script>
+
+  <script>
+    const BLOCK_IDS = ["int-38048", "int-38049", "int-38050"];
+    const AD_INTERVAL = 20;
+
+    function showAd() {
+      try {
+        const blockId = BLOCK_IDS[Math.floor(Math.random() * BLOCK_IDS.length)];
+        const AdController = window.Adsgram.init({ blockId });
+        AdController.show().catch(() => {});
+      } catch(e) {}
+    }
+
+    setInterval(showAd, AD_INTERVAL * 1000);
+  </script>
 </body>
 </html>
