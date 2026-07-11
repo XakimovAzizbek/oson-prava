@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oson Prava — Yo'l Harakati Testi</title>
+  <link rel="stylesheet" href="home.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🚦</span>
+        <span class="logo-text">Oson <strong>Prava</strong></span>
+      </div>
+      <a href="admin.html" class="admin-link">Admin Panel</a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home-screen">
+    <div class="hero-badge">O'zbekiston YHQ Testlari</div>
+    <h1 class="hero-title">Pravani <span class="accent">Oson</span> Oling</h1>
+    <p class="hero-sub">Rasmiy yo'l harakati qoidalari bo'yicha testlarni ishlang, xatolaringizni tahlil qiling va imtihonga tayyor bo'ling.</p>
+
+    <div class="stats-row">
+      <div class="stat-card" id="stat-questions">
+        <span class="stat-num" id="total-q-count">—</span>
+        <span class="stat-label">Jami savollar</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Bepul</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">⚡</span>
+        <span class="stat-label">Tezkor</span>
+      </div>
+    </div>
+
+    <button class="btn-start" id="btn-start">Testni Boshlash</button>
+  </section>
+
+  <!-- ===== CATEGORY SELECT ===== -->
+  <section class="screen hidden" id="category-screen">
+    <div class="screen-inner">
+      <h2 class="screen-title">Kategoriya tanlang</h2>
+      <div class="category-grid" id="category-grid">
+        <!-- JS tomonidan to'ldiriladi -->
+        <div class="cat-skeleton"></div>
+        <div class="cat-skeleton"></div>
+        <div class="cat-skeleton"></div>
+      </div>
+      <button class="btn-all" id="btn-all-cats">Barcha savollar</button>
+    </div>
+  </section>
+
+  <!-- ===== TEST ===== -->
+  <section class="screen hidden" id="test-screen">
+    <div class="screen-inner">
+
+      <!-- Progress -->
+      <div class="progress-header">
+        <span class="q-counter" id="q-counter">1 / 20</span>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+        <button class="btn-quit" id="btn-quit">✕ Chiqish</button>
+      </div>
+
+      <!-- Savol -->
+      <div class="question-card" id="question-card">
+        <div class="q-category-tag" id="q-cat-tag"></div>
+        <p class="q-text" id="q-text">Yuklanmoqda...</p>
+        <div class="q-image-wrap hidden" id="q-image-wrap">
+          <img id="q-image" src="" alt="Savol rasmi" />
+        </div>
+      </div>
+
+      <!-- Javoblar -->
+      <div class="answers-grid" id="answers-grid">
+        <!-- JS tomonidan -->
+      </div>
+
+      <!-- Keyingi -->
+      <button class="btn-next hidden" id="btn-next">Keyingisi →</button>
+
+    </div>
+  </section>
+
+  <!-- ===== NATIJA ===== -->
+  <section class="screen hidden" id="result-screen">
+    <div class="screen-inner result-inner">
+
+      <div class="result-emoji" id="result-emoji">🎉</div>
+      <h2 class="result-title" id="result-title">Natija</h2>
+      <p class="result-subtitle" id="result-subtitle"></p>
+
+      <!-- Donut chart -->
+      <div class="donut-wrap">
+        <svg class="donut" viewBox="0 0 120 120" id="donut-svg">
+          <circle class="donut-bg" cx="60" cy="60" r="50" />
+          <circle class="donut-correct" cx="60" cy="60" r="50" id="donut-correct-arc" />
+          <circle class="donut-wrong" cx="60" cy="60" r="50" id="donut-wrong-arc" />
+        </svg>
+        <div class="donut-center">
+          <span class="donut-pct" id="donut-pct">0%</span>
+          <span class="donut-label">To'g'ri</span>
+        </div>
+      </div>
+
+      <!-- Raqamlar -->
+      <div class="result-stats">
+        <div class="rs-card correct">
+          <span class="rs-num" id="rs-correct">0</span>
+          <span class="rs-lbl">✅ To'g'ri</span>
+        </div>
+        <div class="rs-card wrong">
+          <span class="rs-num" id="rs-wrong">0</span>
+          <span class="rs-lbl">❌ Noto'g'ri</span>
+        </div>
+        <div class="rs-card total">
+          <span class="rs-num" id="rs-total">0</span>
+          <span class="rs-lbl">📋 Jami</span>
+        </div>
+      </div>
+
+      <!-- O'tdi/o'tmadi banner -->
+      <div class="pass-banner" id="pass-banner"></div>
+
+      <!-- Xatolar tafsiloti -->
+      <div class="mistakes-section" id="mistakes-section">
+        <h3 class="mistakes-title">❌ Xato javoblar</h3>
+        <div class="mistakes-list" id="mistakes-list"></div>
+      </div>
+
+      <div class="result-actions">
+        <button class="btn-retry" id="btn-retry">🔄 Qaytadan</button>
+        <button class="btn-home" id="btn-home">🏠 Bosh sahifa</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Loading overlay -->
+  <div class="loading-overlay hidden" id="loading">
+    <div class="spinner"></div>
+    <p>Yuklanmoqda...</p>
+  </div>
+
+  <!-- Firebase compat CDN -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="home.js"></script>
+</body>
+</html>

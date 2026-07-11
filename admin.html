@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — Oson Prava</title>
+  <link rel="stylesheet" href="admin.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span>🚦</span>
+        <span>Oson Prava <strong>Admin</strong></span>
+      </div>
+      <a href="home.html" class="back-link">← Saytga qaytish</a>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <nav class="side-nav">
+        <button class="nav-btn active" data-tab="questions">📋 Savollar</button>
+        <button class="nav-btn" data-tab="add">➕ Savol qo'shish</button>
+        <button class="nav-btn" data-tab="stats">📊 Statistika</button>
+      </nav>
+      <div class="sidebar-stats">
+        <div class="ss-item"><span id="ss-total">0</span><small>Jami savol</small></div>
+        <div class="ss-item"><span id="ss-cats">0</span><small>Kategoriya</small></div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- TAB: Savollar ro'yxati -->
+      <section class="tab-panel active" id="tab-questions">
+        <div class="panel-head">
+          <h2>Barcha Savollar</h2>
+          <div class="filters">
+            <input type="text" id="search-input" placeholder="🔍 Qidirish..." class="search-box" />
+            <select id="filter-cat" class="select-box">
+              <option value="">Barcha kategoriyalar</option>
+            </select>
+          </div>
+        </div>
+        <div class="q-list" id="q-list">
+          <div class="empty-state">Yuklanmoqda...</div>
+        </div>
+      </section>
+
+      <!-- TAB: Savol qo'shish -->
+      <section class="tab-panel" id="tab-add">
+        <div class="panel-head">
+          <h2 id="form-title">Yangi Savol Qo'shish</h2>
+        </div>
+
+        <div class="form-card">
+          <input type="hidden" id="edit-id" />
+
+          <div class="form-row">
+            <label>Kategoriya</label>
+            <div class="cat-input-wrap">
+              <select id="category-select" class="select-box">
+                <option value="">— Kategoriya tanlang —</option>
+              </select>
+              <span class="or-text">yoki yangi:</span>
+              <input type="text" id="new-category" placeholder="Yangi kategoriya nomi" class="input-box" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label>Savol matni <span class="req">*</span></label>
+            <textarea id="q-input" rows="3" placeholder="Savol matnini kiriting..." class="textarea-box"></textarea>
+          </div>
+
+          <div class="form-row">
+            <label>Rasm URL <span class="opt">(ixtiyoriy)</span></label>
+            <input type="url" id="img-input" placeholder="https://... rasm manzili" class="input-box" />
+          </div>
+
+          <div class="form-row">
+            <label>Javob variantlari <span class="req">*</span></label>
+            <div class="options-list" id="options-list">
+              <!-- JS to'ldiradi -->
+            </div>
+            <button class="btn-add-opt" id="btn-add-opt">+ Variant qo'shish</button>
+          </div>
+
+          <div class="form-row">
+            <label>To'g'ri javob <span class="req">*</span></label>
+            <select id="correct-select" class="select-box">
+              <option value="">— To'g'ri javobni tanlang —</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn-save" id="btn-save">💾 Saqlash</button>
+            <button class="btn-cancel-edit hidden" id="btn-cancel-edit">✕ Bekor qilish</button>
+          </div>
+
+          <div class="form-message hidden" id="form-msg"></div>
+        </div>
+      </section>
+
+      <!-- TAB: Statistika -->
+      <section class="tab-panel" id="tab-stats">
+        <div class="panel-head"><h2>Statistika</h2></div>
+        <div class="stats-grid" id="stats-grid">
+          <!-- JS to'ldiradi -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Delete confirm modal -->
+  <div class="modal-overlay hidden" id="modal">
+    <div class="modal-box">
+      <p class="modal-text">Bu savolni o'chirishni tasdiqlaysizmi?</p>
+      <div class="modal-actions">
+        <button class="btn-confirm-del" id="btn-confirm-del">O'chirish</button>
+        <button class="btn-cancel-del" id="btn-cancel-del">Bekor</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-overlay hidden" id="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
