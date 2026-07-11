@@ -8,63 +8,20 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: sans-serif;
       background: #131d30;
       color: #e8edf5;
       height: 90px;
       overflow: hidden;
       display: flex;
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .ad-wrap {
-      width: 100%;
-      height: 90px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Animatsiyali fon chizig'i */
-    .ad-glow {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(0,200,150,0.06) 40%,
-        rgba(0,153,230,0.06) 60%,
-        transparent 100%);
-      animation: glowMove 3s ease-in-out infinite alternate;
-    }
-    @keyframes glowMove {
-      from { opacity: 0.4; transform: translateX(-10px); }
-      to   { opacity: 1;   transform: translateX(10px); }
-    }
-
-    /* Asosiy mazmun */
-    .ad-content {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 0 18px;
-      width: 100%;
+      padding: 0 16px;
+      gap: 12px;
     }
 
     .ad-icon {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       flex-shrink: 0;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50%       { transform: scale(1.12); }
     }
 
     .ad-texts {
@@ -75,14 +32,14 @@
       overflow: hidden;
     }
     .ad-label {
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: #00c896;
     }
     .ad-title {
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: #e8edf5;
       white-space: nowrap;
@@ -90,22 +47,18 @@
       text-overflow: ellipsis;
     }
 
-    /* Countdown ring */
+    /* Countdown doira */
     .ad-timer {
       flex-shrink: 0;
       position: relative;
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
     }
     .ad-timer svg {
       transform: rotate(-90deg);
     }
-    .timer-bg {
-      fill: none;
-      stroke: #243047;
-      stroke-width: 3;
-    }
-    .timer-fill {
+    .t-bg   { fill: none; stroke: #243047; stroke-width: 3; }
+    .t-fill {
       fill: none;
       stroke: #00c896;
       stroke-width: 3;
@@ -114,180 +67,98 @@
       stroke-dashoffset: 0;
       transition: stroke-dashoffset 1s linear;
     }
-    .timer-num {
+    .t-num {
       position: absolute;
       inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
       color: #00c896;
     }
-
-    /* Reklama chiqayotganida overlay */
-    .ad-loading {
-      position: fixed;
-      inset: 0;
-      background: rgba(11,17,32,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
-    .ad-loading.show {
-      opacity: 1;
-      pointer-events: all;
-    }
-    .ad-spinner {
-      width: 36px; height: 36px;
-      border: 3px solid #243047;
-      border-top-color: #00c896;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
 
-<div class="ad-wrap" id="adWrap">
-  <div class="ad-glow"></div>
-  <div class="ad-content">
-    <div class="ad-icon" id="adIcon">🎯</div>
-    <div class="ad-texts">
-      <span class="ad-label">Reklama</span>
-      <span class="ad-title" id="adTitle">Yuklanmoqda...</span>
-    </div>
-    <div class="ad-timer">
-      <svg width="40" height="40" viewBox="0 0 40 40">
-        <circle class="timer-bg" cx="20" cy="20" r="16"/>
-        <circle class="timer-fill" cx="20" cy="20" r="16" id="timerArc"/>
-      </svg>
-      <div class="timer-num" id="timerNum">20</div>
-    </div>
+  <div class="ad-icon" id="adIcon">🎯</div>
+  <div class="ad-texts">
+    <span class="ad-label">Reklama</span>
+    <span class="ad-title" id="adTitle">Yuklanmoqda...</span>
   </div>
-</div>
+  <div class="ad-timer">
+    <svg width="38" height="38" viewBox="0 0 38 38">
+      <circle class="t-bg"   cx="19" cy="19" r="15"/>
+      <circle class="t-fill" cx="19" cy="19" r="15" id="tArc"/>
+    </svg>
+    <div class="t-num" id="tNum">20</div>
+  </div>
 
-<div class="ad-loading" id="adLoading">
-  <div class="ad-spinner"></div>
-</div>
-
-<!-- Adsgram SDK -->
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <script>
-  // =====================================================
-  // 3 ta Block ID — random tanlanadi
-  // =====================================================
   const BLOCK_IDS = [
     "int-38048",
-    "int-38048",
-    "int-38048"
+    "int-38049",
+    "int-38050"
   ];
 
-  const AD_INTERVAL = 20; // soniya
-
-  // Banner matni (random)
-  const AD_TITLES = [
-    "Maxsus taklif! Ko'proq bilish uchun bosing",
-    "Bugun chegirma! Foydalaning",
+  const TITLES = [
+    "Maxsus taklif! Hozir ko'ring",
     "Yangi imkoniyat siz uchun",
-    "Qiziqarli xizmatni ko'ring",
-    "Eng yaxshi taklif — hozir!"
+    "Eng yaxshi xizmat — bu yerda",
+    "Qiziqarli! Ko'proq bilish uchun",
+    "Bugun foydali narsa toping"
   ];
-  const AD_ICONS = ["🎯","🎁","⚡","🚀","💎","🔥","✨"];
+  const ICONS = ["🎯","🎁","⚡","🚀","💎","🔥","✨"];
 
-  let timeLeft = AD_INTERVAL;
-  let timerInterval = null;
-  const circumference = 2 * Math.PI * 16; // r=16
+  const INTERVAL = 20;
+  const C = 2 * Math.PI * 15; // circumference r=15
 
-  const timerArc = document.getElementById('timerArc');
-  const timerNum = document.getElementById('timerNum');
-  const adTitle  = document.getElementById('adTitle');
-  const adIcon   = document.getElementById('adIcon');
-  const adWrap   = document.getElementById('adWrap');
-  const adLoading = document.getElementById('adLoading');
+  const tArc  = document.getElementById('tArc');
+  const tNum  = document.getElementById('tNum');
+  const title = document.getElementById('adTitle');
+  const icon  = document.getElementById('adIcon');
 
-  timerArc.style.strokeDasharray = circumference;
+  tArc.style.strokeDasharray = C;
 
-  // Random element
-  function randItem(arr) {
+  let left = INTERVAL;
+
+  function rand(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
-  // Banner mazmunini yangilash
-  function refreshBannerContent() {
-    adTitle.textContent = randItem(AD_TITLES);
-    adIcon.textContent  = randItem(AD_ICONS);
+  function updateUI() {
+    tNum.textContent = left;
+    tArc.style.strokeDashoffset = C * (1 - left / INTERVAL);
   }
 
-  // Countdown yangilash
-  function updateTimer() {
-    timerNum.textContent = timeLeft;
-    const offset = circumference * (1 - timeLeft / AD_INTERVAL);
-    timerArc.style.strokeDashoffset = offset;
+  function refreshContent() {
+    title.textContent = rand(TITLES);
+    icon.textContent  = rand(ICONS);
   }
 
-  // Reklamani ko'rsatish
   function showAd() {
-    const blockId = randItem(BLOCK_IDS);
-
-    adLoading.classList.add('show');
-
     try {
-      const AdController = window.Adsgram.init({ blockId });
-
-      AdController.show().then(() => {
-        // Reklama muvaffaqiyatli ko'rsatildi
-        adLoading.classList.remove('show');
-        resetTimer();
-        refreshBannerContent();
-      }).catch(() => {
-        // Reklama yo'q yoki xato
-        adLoading.classList.remove('show');
-        resetTimer();
-      });
+      const AdController = window.Adsgram.init({ blockId: rand(BLOCK_IDS) });
+      AdController.show()
+        .then(() => { left = INTERVAL; refreshContent(); })
+        .catch(() => { left = INTERVAL; });
     } catch(e) {
-      adLoading.classList.remove('show');
-      resetTimer();
+      left = INTERVAL;
     }
   }
 
-  // Timerni qayta boshlash
-  function resetTimer() {
-    timeLeft = AD_INTERVAL;
-    updateTimer();
-  }
+  refreshContent();
+  updateUI();
 
-  // Countdown loop
-  function startCountdown() {
-    updateTimer();
-    timerInterval = setInterval(() => {
-      timeLeft--;
-      updateTimer();
-
-      if (timeLeft <= 0) {
-        showAd();
-      }
-    }, 1000);
-  }
-
-  // Banner bosilganda ham reklama chiqsin
-  adWrap.addEventListener('click', () => {
-    clearInterval(timerInterval);
-    showAd();
-    // Reset & restart
-    setTimeout(() => {
-      startCountdown();
-    }, 500);
-  });
-
-  // Init
-  refreshBannerContent();
-  startCountdown();
+  setInterval(() => {
+    left--;
+    if (left <= 0) {
+      left = INTERVAL;
+      showAd();
+    }
+    updateUI();
+  }, 1000);
 </script>
 </body>
 </html>
